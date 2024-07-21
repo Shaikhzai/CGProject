@@ -1,0 +1,495 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,600;1,900&display=swap");
+@import url("https://rsms.me/inter/inter.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-family: "Inter", sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: "Inter var", sans-serif;
+  }
+}
+
+.app {
+  @apply relative w-full h-screen overflow-hidden;
+}
+
+.home {
+  @apply w-fit xl:h-full flex xl:justify-between justify-start items-start flex-col xl:py-8 xl:px-36 sm:p-8 p-6 max-xl:gap-7 absolute z-10;
+}
+
+.home-content {
+  @apply flex-1 xl:justify-center justify-start flex flex-col gap-10;
+}
+
+.head-text {
+  @apply xl:text-[10rem] text-[6rem] xl:leading-[11rem] leading-[7rem] font-black text-black;
+}
+
+.download-btn {
+  @apply w-14 h-14 flex justify-center items-center rounded-full glassmorphism cursor-pointer outline-none;
+}
+
+.editortabs-container {
+  @apply glassmorphism w-16 border-[2px] rounded-lg flex flex-col justify-center items-center ml-1 py-4 gap-4;
+}
+
+.filtertabs-container {
+  @apply absolute z-10 bottom-5 right-0 left-0 w-full flex justify-center items-center flex-wrap gap-4;
+}
+
+.aipicker-container {
+  @apply absolute left-full ml-3 glassmorphism p-3 w-[195px] h-[220px] rounded-md flex flex-col gap-4;
+}
+
+.aipicker-textarea {
+  @apply w-full bg-transparent text-sm border border-gray-300 p-2 outline-none flex-1;
+}
+
+.filepicker-container {
+  @apply absolute left-full ml-3 glassmorphism p-3 w-[195px] h-[220px] flex flex-col rounded-md;
+}
+
+.filepicker-label {
+  @apply border border-gray-300 py-1.5 px-2 rounded-md shadow-sm text-xs text-gray-700 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 cursor-pointer w-fit;
+}
+
+.tab-btn {
+  @apply w-14 h-14 flex justify-center items-center cursor-pointer select-none;
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 2px 30px 0 rgba(31, 38, 135, 0.07);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+input[type="file"] {
+  z-index: -1;
+  position: absolute;
+  opacity: 0;
+}
+
+.sketch-picker {
+  width: 170px !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 2px 30px 0 rgba(31, 38, 135, 0.07) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 6px !important;
+}
+
+.sketch-picker > div:nth-child(3) {
+  display: none !important;
+}
+
+/*order page css*/
+/* Initial form state */
+.form {
+  --col1: #fff;
+  --col2: #252325;
+  --col3: rgba(232, 213, 196, 0.9);
+  --col4: #ffffff;
+  --col5: #683363;
+  --sh: rgba(80, 80, 80, 0.35);
+  --rad: 4px;
+  --radBig: 10px;
+  border-radius: 0 0 var(--radBig) var(--radBig);
+  /* box-shadow: 0 0 20px var(--sh); */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em 1em;
+  padding: 1em;
+  position: relative;
+  max-width: 75%;
+  max-height: 90px;
+  transition: background .3s ease-out, max-height .3s ease-out;
+  overflow: hidden;
+}
+
+.form::before {
+  content: 'Place Order';
+  color: var(--col2);
+  font-size: 1.2em;
+  font-weight: 700;
+  display: grid;
+  width: calc(100% - 2em);
+  height: 60%;
+  position: absolute;
+  place-items: center;
+  z-index: 99999;
+}
+
+.form::after {
+  content: '';
+  backdrop-filter: blur(6px) grayscale(100%);
+  background: linear-gradient(-180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,.5) 70%, rgba(255, 255, 255, 0.3) 90%);
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  display: block;
+  position: absolute;
+  z-index: 999;
+}
+
+.form::after,
+.form::before {
+  border-radius: 0 0 var(--radBig) var(--radBig);
+  pointer-events: none;
+  transition: all .5s ease-out;
+}
+
+/* Form hover and focus */
+.form:hover,
+.form:focus-within {
+  max-width: 100%;
+  max-height: 550px;
+}
+
+.form:focus-within {
+  overflow: initial;
+}
+
+.form:hover::before,
+.form:hover::after {
+  opacity: 0;
+}
+
+.form:hover::after {
+  backdrop-filter: blur(0) grayscale(0%);
+}
+
+.form header {
+  color: var(--col1);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+/* Labels and inputs UI */
+:is(.form) label span, label input {
+  flex: 1 100%;
+  transition: all .3s ease-out;
+}
+
+:is(.form) input, select, button {
+  appearance: none;
+  border: 0;
+  padding: .75em;
+  border-radius: var(--rad);
+  transition: all .3s ease-out;
+}
+
+.form label {
+  display: flex;
+  flex-flow: row wrap;
+  color: var(--col4);
+  gap: .5em;
+}
+
+.form input {
+  box-shadow: inset 3px 3px 1px var(--sh);
+}
+
+.form fieldset {
+  display: flex;
+  backdrop-filter: blur(10px);
+  flex-flow: row nowrap;
+  gap: 1em;
+  position: relative;
+  transition: all .3s ease-out;
+  padding: 1rem;
+  z-index: 10;
+  border: 3px double var(--col1);
+  border-radius: var(--rad);
+}
+
+.form fieldset label {
+  flex: 1;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: .75em;
+}
+
+.sm {
+  justify-content: space-around;
+}
+
+.sm span {
+  text-align: center;
+}
+
+.form select {
+  box-shadow: inset 3px 3px 1px var(--sh);
+  padding: .75em 1.75em .75em 0.5em;
+  position: relative;
+}
+
+.custom-select {
+  position: relative;
+}
+
+.custom-select::after {
+  position: absolute;
+  content: "";
+  top: 45%;
+  right: 5px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: var(--col5) transparent transparent transparent;
+}
+
+.form fieldset span {
+  flex: 1 100%;
+}
+
+.form fieldset input {
+  flex: 0 1 40px;
+}
+
+.form button {
+  background-color: var(--col1);
+  color: var(--col4);
+  border: 2px solid var(--col4);
+  font-size: 1em;
+  font-weight: 700;
+  align-self: center;
+  padding: .5em 1.5em;
+  appearance: none;
+}
+
+/* Form and UI valid and invalid states */
+.form input:focus,
+.form select:focus {
+  outline: 3px solid var(--col3);
+  outline-offset: 1px;
+}
+
+.form input:invalid:not(:focus),
+.form select:invalid:not(:focus) {
+  background-color: var(--col3);
+  outline: 3px solid var(--col4);
+  outline-offset: 1px;
+}
+
+.form input:valid:not(:focus),
+.form select:valid:not(:focus) {
+  outline: 3px solid var(--col1);
+  outline-offset: 1px;
+}
+
+.form .message {
+  display: block;
+  opacity: 0;
+  font-size: .75em;
+  font-weight: 400;
+  transition: all .3s ease-out;
+  margin: -1rem 0 0;
+}
+
+.form:has(:invalid) .message {
+  opacity: 1;
+  margin: .25rem 0 0 0;
+}
+
+label:has(input:invalid),
+label:has(select:invalid) {
+  color: var(--col3);
+  opacity: .8;
+}
+
+label:has(input:valid),
+label:has(select:valid) {
+  opacity: 1;
+}
+
+.form:hover:has(:focus, :active):valid .submitCard {
+  max-height: 180px;
+  opacity: 1;
+  transition: opacity 1s ease-out .5s, translate 1.3s ease-out;
+  translate: 0 100%;
+}
+
+.form:hover:invalid {
+  transition: all .3s ease-out;
+  background-color: var(--col5);
+}
+
+.form:hover:valid {
+  transition: all .3s ease-out;
+  background-color: var(--col1);
+}
+
+.form:hover:valid * {
+  color: var(--col2);
+}
+
+.form:hover:valid input,
+.form:hover:valid select {
+  outline: 3px solid var(--col2);
+}
+
+.form:hover:invalid fieldset {
+  border: 1px dashed var(--col3);
+}
+
+.form:hover:valid fieldset {
+  border: 1px dashed var(--col2);
+}
+
+/* Submit block */
+.form .submitCard {
+  display: flex;
+  justify-content: center;
+  background-color: var(--col2);
+  border-radius: 0 0 var(--rad) var(--rad);
+  bottom: 0;
+  padding: .5em;
+  opacity: 0;
+  max-height: 0;
+  translate: 0 -100%;
+  position: absolute;
+  width: calc(100% - 2em);
+  transition: all .5s ease-out .1s;
+  z-index: -1;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: 10fr 1fr;
+  padding: 0px;
+  gap: 5px;
+}
+
+.details span:nth-child(odd) {
+  font-size: 12px;
+  font-weight: 600;
+  color: #000000;
+  margin: auto auto auto 0;
+}
+
+.details span:nth-child(even) {
+  font-size: 13px;
+  font-weight: 600;
+  color: #000000;
+  margin: auto 0 auto auto;
+}
+
+.parent {
+  width: 300px;
+  padding: 20px;
+  perspective: 1000px;
+}
+
+.card {
+  padding-top: 50px;
+  /* border-radius: 10px; */
+  border: 3px solid rgb(255, 255, 255);
+  transform-style: preserve-3d;
+  background: linear-gradient(135deg,#0000 18.75%,#f3f3f3 0 31.25%,#0000 0),
+      repeating-linear-gradient(45deg,#f3f3f3 -6.25% 6.25%,#ffffff 0 18.75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 0;
+  background-color: #f0f0f0;
+  width: 100%;
+  box-shadow: rgba(142, 142, 142, 0.3) 0px 30px 30px -10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.card:hover {
+  background-position: -100px 100px, -100px 100px;
+  transform: rotate3d(0.5, 1, 0, 30deg);
+}
+
+.content-box {
+  background: rgba(4, 193, 250, 0.732);
+  /* border-radius: 10px 100px 10px 10px; */
+  transition: all 0.5s ease-in-out;
+  padding: 60px 25px 25px 25px;
+  transform-style: preserve-3d;
+}
+
+.content-box .card-title {
+  display: inline-block;
+  color: white;
+  font-size: 25px;
+  font-weight: 900;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 50px);
+}
+
+.content-box .card-title:hover {
+  transform: translate3d(0px, 0px, 60px);
+}
+
+.content-box .card-content {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #f2f2f2;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 30px);
+}
+
+.content-box .card-content:hover {
+  transform: translate3d(0px, 0px, 60px);
+}
+
+.content-box .see-more {
+  cursor: pointer;
+  margin-top: 1rem;
+  display: inline-block;
+  font-weight: 900;
+  font-size: 9px;
+  text-transform: uppercase;
+  color: rgb(7, 185, 255);
+  /* border-radius: 5px; */
+  background: white;
+  padding: 0.5rem 0.7rem;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 20px);
+}
+
+.content-box .see-more:hover {
+  transform: translate3d(0px, 0px, 60px);
+}
+
+.date-box {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  height: 60px;
+  width: 60px;
+  background: white;
+  border: 1px solid rgb(7, 185, 255);
+  /* border-radius: 10px; */
+  padding: 10px;
+  transform: translate3d(0px, 0px, 80px);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 17px 10px -10px;
+}
+
+.date-box span {
+  display: block;
+  text-align: center;
+}
+
+.date-box .month {
+  color: rgb(4, 193, 250);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.date-box .date {
+  font-size: 20px;
+  font-weight: 900;
+  color: rgb(4, 193, 250);
+}
+ 
